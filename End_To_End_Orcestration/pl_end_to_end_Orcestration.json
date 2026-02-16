@@ -1,0 +1,121 @@
+{
+    "name": "pl_end_to_end_orcestration",
+    "objectId": "ea2d48d4-27bd-4df1-b7b8-84e7824e7b11",
+    "properties": {
+        "activities": [
+            {
+                "name": "Raw to Landing",
+                "type": "ExecutePipeline",
+                "dependsOn": [],
+                "policy": {
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "dff70747-fe77-4bc3-ae39-03346ed6eb2e",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": true
+                }
+            },
+            {
+                "name": "Landing to Bronze",
+                "type": "TridentNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "Raw to Landing",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "notebookId": "22c8f322-fd37-4e2f-b4b8-b37831718384",
+                    "workspaceId": "e5f78a52-07c4-4086-9769-5cee61b48610",
+                    "parameters": {
+                        "today_date": {
+                            "value": {
+                                "value": "@formatDateTime(utcNow(),'yyyy-MM-dd')",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "Bronze to Silver",
+                "type": "TridentNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "Landing to Bronze",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "notebookId": "0d3d4c88-e8dc-499c-9ff1-6f8c428e7a14",
+                    "workspaceId": "e5f78a52-07c4-4086-9769-5cee61b48610",
+                    "parameters": {
+                        "today_date": {
+                            "value": {
+                                "value": "@formatDateTime(utcNow(),'yyyy-MM-dd')",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "Silver to Gold",
+                "type": "TridentNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "Bronze to Silver",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "notebookId": "1d8c6aff-2e52-44bf-a285-ac6a338859b5",
+                    "workspaceId": "e5f78a52-07c4-4086-9769-5cee61b48610",
+                    "parameters": {
+                        "today_date": {
+                            "value": {
+                                "value": "@formatDateTime(utcNow(),'yyyy-MM-dd')",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        ],
+        "lastModifiedByObjectId": "15155948-d28d-496b-b759-aaaebbd031ad",
+        "lastPublishTime": "2026-02-16T08:44:17Z"
+    }
+}
