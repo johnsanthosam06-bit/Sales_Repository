@@ -20,11 +20,6 @@ This project demonstrates end-to-end data analytics of Sales details using Micro
 - Pyspark scripts for transformation
 - Power BI dashboard (.pbix)
 
-## 📷 Dashboard Preview
-
-
-<img width="2618" height="1402" alt="image" src="https://github.com/user-attachments/assets/a5f0d70d-c6c8-4d3f-b819-92123e8d0441" />
-
 
  ## Code used in Notebook: raw_to_Landing
 
@@ -687,3 +682,19 @@ print(f"Rows impacted : {rows_impacted} ")
 
 
 ```
+
+## Final pipeline Orcestration:
+
+The final pipeline orchestrates the complete end-to-end data flow using pipeline activities. An Invoke Pipeline activity is used to trigger the Raw-to-Landing pipeline as the initial step. Upon successful completion of this pipeline, the remaining transformation notebooks (Landing-to-Bronze, Bronze-to-Silver, and Silver-to-Gold) are executed sequentially. This dependency-based execution ensures proper data flow across all layers of the Medallion architecture. The orchestration design improves modularity, reusability, and maintainability of the overall data engineering workflow.
+
+<img width="2220" height="410" alt="image" src="https://github.com/user-attachments/assets/97eb2053-c6b4-4a1c-869f-18d95230e372" />
+
+
+## 📷 Dashboard Preview
+
+In the final step, a Power BI report was developed using the Gold layer tables as the data source. The report includes interactive visualizations such as sales trends by order date, sales distribution by shipping mode, and key performance indicators like total sales. The fact and dimension tables created in the Gold layer were used to build a structured data model for reporting. These visualizations provide business insights into sales performance, customer behavior, and product distribution. This reporting layer represents the final consumption layer of the end-to-end Medallion architecture pipeline.
+
+<img width="2618" height="1402" alt="image" src="https://github.com/user-attachments/assets/a5f0d70d-c6c8-4d3f-b819-92123e8d0441" />
+
+
+
