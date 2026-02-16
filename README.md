@@ -689,6 +689,12 @@ The final pipeline orchestrates the complete end-to-end data flow using pipeline
 
 <img width="2220" height="410" alt="image" src="https://github.com/user-attachments/assets/97eb2053-c6b4-4a1c-869f-18d95230e372" />
 
+## Creating Semantic Model:
+
+A Sales Semantic Model was created to structure the Gold layer tables for analytical reporting. The model includes Dim_Customer, Dim_Product, and Fact_Sales tables organized in a star schema design. Relationships were defined between the fact table and dimension tables using appropriate primary and foreign keys to ensure proper filtering and aggregation behavior. This semantic layer enables consistent business logic, optimized query performance, and accurate reporting in Power BI. It serves as the analytical foundation for building interactive dashboards and business insights.
+
+<img width="1936" height="722" alt="image" src="https://github.com/user-attachments/assets/3a04654d-417c-4616-b65d-4955a12e1f08" />
+
 
 ## 📷 Dashboard Preview
 
